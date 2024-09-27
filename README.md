@@ -1,6 +1,6 @@
 ## How to create a remote server using DigitalOcean
 
-### Adding an Arch Linux image (using the web console)
+### Downloading an Arch Linux image and uploading it to DigitalOcean
 ***
 
 > What is an Arch Linux image?
@@ -20,9 +20,8 @@ To use an Arch Linux image, first we have to download one. To download an Arch L
 ![[arch-linux-download-package-registry.png]]
 3. Scroll down to the Assets section
 ![[arch-linux-download-assets.png]]
-4. Find an Arch Linux image for which the filename includes "cloudimg" and the extension name is .qcow2
+4. Locate and click an Arch Linux image for which the filename includes "cloudimg" and the extension name is .qcow2
 ![[arch-linux-download-image-files.png]]
-5. Click the Arch Linux image you located
 
 You will be prompted to download the Arch Linux image
 
@@ -31,7 +30,7 @@ You will be prompted to download the Arch Linux image
 
 Congratulations, you have successfully downloaded an Arch Linux image. Now, you can move on to the next section: uploading that image to DigitalOcean.
 
-#### Uploading the Arch Linux image to DigitalOcean
+#### Uploading an Arch Linux image to DigitalOcean
 
 To use our Arch Linux image with DigitalOcean's services, we first have to upload it onto DigitalOcean. To upload the Arch Linux image we downloaded in the previous section, follow these steps:
 
@@ -90,25 +89,86 @@ Congratulations, you have successfully uploaded your Arch Linux image to Digital
 3. https://wiki.archlinux.org/title/Arch_Linux
 
 
-### Adding an SSH key to your 
+### Creating an SSH key pair and adding it to your DigitalOcean account
 ***
 
 > What are SSH keys?
 
 > Why are we using SSH keys?
 
-SSH stands for the Secure Shell protocol, and it is a way of securely sending data over an unsecured network through the use of public key cryptography. In public key cryptography, you have two keys: one public and one private. Your private key should only be known to you. **These are known as SSH keys**. 
+SSH stands for the Secure Shell protocol, and it is a way of securely sending data over an unsecured network through the use of public key cryptography. In public key cryptography, you have two keys (a pair): one public and one private. Your private key should only be known to you. **These are known as SSH keys**. 
 
 We will be using SSH keys because they are more secure than using a password.
 
-#### How to create an SSH key
+#### Creating an SSH key pair
+To create an SSH key pair, follow these steps:
 
-text
+1.  (For Windows users) Create a .ssh directory in your home directory by creating a new folder called .ssh
+
+This folder will be used to store our ssh keys and config files
+
+![[create-ssh-folder.png]]
+2. Run the following command in your terminal, replacing "your-user-name" with your Windows user name
+> Note: "ssh-keygen" is a tool that creates SSH key pairs. If you are using a MacOS or Windows device, you should already have this installed. 
+```
+`ssh-keygen -t ed25519 -f C:\Users\your-user-name\.ssh\do-key -C "youremail@email.com"`
+```
+What these commands mean:
+- -t = type (the type of encryption used for the key)
+- -f = filename (specifying the name of the and its location)
+- -C = comment (the comment that will be attached to the key)
+
+The command we ran will create two text files in your .ssh directory:
+- do-key = your private key
+- do-key.pub = your public key (the one you will copy to your server)
+![[public-and-private-key-in-ssh-folder.png]]
+
+Congratulations, once you see these two files in your .ssh directory, you can move onto the next step: adding your public key to your DigitalOcean account.
+
+#### Adding your public SSH key to your DigitalOcean account
+
+You must connect your public key to your server on your DigitalOcean account for it to allow you to login to the server using your private key. To add your public key onto DigitalOcean, follow these steps:
+
+1. Copy the contents of your do-key.pub file (your public key) by running one of the following commands depending on your operating system
+
+For Windows users:
+```
+Get-Content C:\Users\your-user-name\.ssh\do-key.pub | Set-Clipboard
+```
+
+For MacOS users:
+``` 
+pbcopy < ~/.ssh/do-key.pub
+```
+
+For Linux users:
+> Note: This command depends on the system you are using
+
+```
+wl-copy < ~/.ssh/do-key.pub
+```
+
+2. Go to the DigitalOcean website
+3. Locate and click Settings
+4. Click the **Security** tab
+![[security-tab.png]]
+5. Locate and click Add SSH Key
+
+A pop-up window will appear
+
+6. Under Public Key, paste your public key in the text box
+7. Under Key Name, type the name you want to give your key
+
+> Note: Give your key an appropriate name that will distinguish itself from other keys
+
+Congratulations, you have successfully added a public key to your DigitalOcean account. You can now move onto the next section: creating a Droplet that runs Arch Linux and connecting to it using SSH.
+
 #### References
 1. https://www.cloudflare.com/learning/access-management/what-is-ssh/
-2. https://docs.digitalocean.com/products/droplets/how-to/add-ssh-keys/
+2. https://www.ssh.com/academy/ssh/keygen
+3. https://docs.digitalocean.com/products/droplets/how-to/add-ssh-keys/
 
-### Creating a Droplet that runs Arch Linux (using the DigitalOcean web console)
+### Creating a Droplet that runs Arch Linux and connecting to it using SSH
 ***
 
 > What is a Droplet?
