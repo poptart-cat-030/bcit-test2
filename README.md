@@ -1,6 +1,7 @@
 ## How to create a remote server using DigitalOcean
 
 ### Creating SSH keys
+***
 
 > What are SSH keys?
 > Why are we using SSH keys?
@@ -17,6 +18,7 @@ https://www.cloudflare.com/learning/access-management/what-is-ssh/
 https://docs.digitalocean.com/products/droplets/how-to/add-ssh-keys/
 
 ### Adding an Arch Linux image (using the web console)
+***
 
 > What is an Arch Linux image?
 > Why Arch Linux?
@@ -37,6 +39,7 @@ https://wiki.archlinux.org/title/Arch_Linux
 
 
 ### Creating a Droplet that runs Arch Linux (using the DigitalOcean web console)
+***
 
 > What is a Droplet?
 
@@ -50,6 +53,7 @@ text
 https://www.redhat.com/en/topics/linux/what-is-linux#:~:text=Linux%20was%20designed%20to%20be,rest%20of%20the%20operating%20system.
 
 ### Automating initial setup tasks using a cloud-init configuration file
+***
 
 > What is cloud-init?
 
@@ -70,7 +74,7 @@ https://wiki.archlinux.org/title/Cloud-init
 https://docs.cloud-init.io/en/latest/explanation/introduction.html
 
 ### Connecting to a Droplet using SSH keys
-
+***
 #### Steps
 
 text
