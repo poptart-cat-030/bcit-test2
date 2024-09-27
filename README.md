@@ -85,9 +85,9 @@ You should now see information on your image under Custom Images
 Congratulations, you have successfully uploaded your Arch Linux image to DigitalOcean. Now, you can move on to the next section: ==Insert instruction section name here==
 
 #### References
-https://docs.digitalocean.com/glossary/imagsee/#:~:text=Last%20edited%20on%2011%20Mar,to%20run%20a%20containerization%20platform.
-https://www.cloudflare.com/learning/cdn/caching-static-and-dynamic-content/#:~:text=Static%20content%20is%20any%20file,of%20this%20kind%20of%20content
-https://wiki.archlinux.org/title/Arch_Linux
+1. https://docs.digitalocean.com/glossary/image/#:~:text=Last%20edited%20on%2011%20Mar,to%20run%20a%20containerization%20platform
+2. https://www.cloudflare.com/learning/cdn/caching-static-and-dynamic-content/#:~:text=Static%20content%20is%20any%20file,of%20this%20kind%20of%20content
+3. https://wiki.archlinux.org/title/Arch_Linux
 
 
 ### Adding an SSH key to your 
@@ -105,8 +105,8 @@ We will be using SSH keys because they are more secure than using a password.
 
 text
 #### References
-https://www.cloudflare.com/learning/access-management/what-is-ssh/
-https://docs.digitalocean.com/products/droplets/how-to/add-ssh-keys/
+1. https://www.cloudflare.com/learning/access-management/what-is-ssh/
+2. https://docs.digitalocean.com/products/droplets/how-to/add-ssh-keys/
 
 ### Creating a Droplet that runs Arch Linux (using the DigitalOcean web console)
 ***
@@ -120,7 +120,7 @@ A Droplet is a virtual machine (VM) that lives on servers owned by DigitalOcean 
 text
 
 #### References
-https://www.redhat.com/en/topics/linux/what-is-linux#:~:text=Linux%20was%20designed%20to%20be,rest%20of%20the%20operating%20system.
+1. https://www.redhat.com/en/topics/linux/what-is-linux#:~:text=Linux%20was%20designed%20to%20be,rest%20of%20the%20operating%20system.
 
 ### Automating initial setup tasks using a cloud-init configuration file
 ***
@@ -139,9 +139,9 @@ text
 - disable root access via ssh
 
 #### References
-https://docs.digitalocean.com/products/droplets/how-to/automate-setup-with-cloud-init/
-https://wiki.archlinux.org/title/Cloud-init
-https://docs.cloud-init.io/en/latest/explanation/introduction.html
+1. https://docs.digitalocean.com/products/droplets/how-to/automate-setup-with-cloud-init/
+2. https://wiki.archlinux.org/title/Cloud-init
+3. https://docs.cloud-init.io/en/latest/explanation/introduction.html
 
 ### Connecting to a Droplet using SSH keys
 ***
@@ -153,4 +153,4 @@ code block
 ```
 
 #### References
-https://docs.digitalocean.com/products/droplets/how-to/connect-with-ssh/
+1. https://docs.digitalocean.com/products/droplets/how-to/connect-with-ssh/
