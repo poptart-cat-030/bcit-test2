@@ -81,7 +81,7 @@ You should now see information on your image under Custom Images
 13. Wait for the status of your image to change from Pending to the date it was uploaded
 ![[arch-linux-upload-done.png]]
 
-Congratulations, you have successfully uploaded your Arch Linux image to DigitalOcean. Now, you can move on to the next section: ==Insert instruction section name here==
+Congratulations, you have successfully uploaded your Arch Linux image to DigitalOcean. Now, you can move on to the next section: creating an SSH key pair and adding it to your DigitalOcean account.
 
 #### References
 1. https://docs.digitalocean.com/glossary/image/#:~:text=Last%20edited%20on%2011%20Mar,to%20run%20a%20containerization%20platform
@@ -149,7 +149,7 @@ wl-copy < ~/.ssh/do-key.pub
 ```
 
 2. Go to the DigitalOcean website
-3. Locate and click Settings
+3. Locate and click **Settings**
 4. Click the **Security** tab
 ![[security-tab.png]]
 5. Locate and click Add SSH Key
@@ -159,7 +159,11 @@ A pop-up window will appear
 6. Under Public Key, paste your public key in the text box
 7. Under Key Name, type the name you want to give your key
 
-> Note: Give your key an appropriate name that will distinguish itself from other keys
+> Note: Give your key an appropriate name that will distinguish itself from other keys.
+> 
+> For example: name your key "acit-2420-laptop" if you use a laptop for this course
+
+8. Click **Add SSH Key**
 
 Congratulations, you have successfully added a public key to your DigitalOcean account. You can now move onto the next section: creating a Droplet that runs Arch Linux and connecting to it using SSH.
 
@@ -175,9 +179,15 @@ Congratulations, you have successfully added a public key to your DigitalOcean a
 
 A Droplet is a virtual machine (VM) that lives on servers owned by DigitalOcean that uses a Linux-based operating system. For our purposes, we will be running Arch Linux on our Droplet. The server we create will live in this VM.
 
-#### Steps
+We will be connecting to our Droplet using the SSH keys we created in the previous section.
 
-text
+#### Creating an Arch Linux Droplet
+
+1. a
+
+#### Connecting to our Droplet using SSH
+
+1. a
 
 #### References
 1. https://www.redhat.com/en/topics/linux/what-is-linux#:~:text=Linux%20was%20designed%20to%20be,rest%20of%20the%20operating%20system.
