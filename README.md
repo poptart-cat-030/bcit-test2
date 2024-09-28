@@ -176,16 +176,21 @@ Congratulations, you have successfully added a public key to your DigitalOcean a
 2. https://www.ssh.com/academy/ssh/keygen
 3. https://docs.digitalocean.com/products/droplets/how-to/add-ssh-keys/
 
-### Creating a Droplet that runs Arch Linux and connecting to it using SSH
+### Creating a Droplet that runs Arch Linux with automated initial set-up tasks (cloud-init)
 ***
 
 > What is a Droplet?
 
 A Droplet is a virtual machine (VM) that lives on servers owned by DigitalOcean that uses a Linux-based operating system. For our purposes, we will be running Arch Linux on our Droplet. The server we create will live in this VM.
 
-#### Creating an Arch Linux Droplet
+> What is a cloud-init?
 
-To create an Arch Linux Droplet on DigitalOcean, follow these steps:
+Cloud-init is a package that contains the tools used to initialize (setup) cloud instances, or in our case, servers, automatically. It does this by using YAML-formatted configuration files (files that contain human-readable instructions), the most common of which being cloud-config files. When a server starts, cloud-init will read and execute the instructions written in YAML file(s). 
+
+Instead of creating 100 servers and manually changing each of them to have the same configurations, we can have those 100 servers all have the settings we want them to have right from the beginning by using a cloud-config file. This can save us a lot of time, and it also reduces the chances of human error.
+
+
+To create an Arch Linux Droplet with automated initial set-up tasks on DigitalOcean, follow these steps:
 
 > Note: You must complete the previous instructions sections for this section to work because we will be using the Arch Linux image and SSH keys we made earlier
 
@@ -218,33 +223,76 @@ This will take you to the Custom images tab
 
 > Note: Be careful not to create a Droplet using a CPU option that is out of your budget
 
-1. Under Choose Authentication Method, ensure that the SSH key is selected
-2. Under Choose your SSH keys, select the SSH key you created previously
+10. Under Choose Authentication Method, ensure that the SSH key is selected
+11. Under Choose your SSH keys, select the SSH key you created previously
 ![[choose-ssh-key.png]]
-12. Ensure the quantity of Droplets is 1
-![[droplet-quantity.png]]
 
-13. Under Hostname, type the name you want to give your host
+12. Locate and click **Advanced Options**
+![[advanced-options.png]]
+
+This will expand the menu
+
+13. Select **Add Initialization scripts (free)**
+![[add-initialization scripts.png]]
+
+14. Copy the following code. This is your cloud-config file:
+
+> Note: 
+> 	- Replace "your-user-name" with the name you want to give your user
+> 	- Replace "your_ssh_keys" with the public SSH key you made previously
+
+```
+#cloud-config
+users:
+  - name: user-name
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    ssh-authorized-keys:
+      - your_ssh_keys
+packages:
+  - ripgrep
+  - rsync
+  - neovim
+  - fd
+  - less
+  - man-db
+  - bash-completion
+  - tmux
+disable_root: true
+```
+
+15. In the text box, paste the contents of the the cloud-config file
+![[paste-config-file-contents.png]]
+
+16. Under Hostname, type the name you want to give your host
 
 > Note: Choose a simple, memorable, and school-appropriate name. This is the name that will appear in the terminal when you are connected to your server.
 > 
 > For example: Name your host "fish"
 
-14. Click **Create Droplet**
+17. Click **Create Droplet**
 
 You should now see a Droplet in your project folder
 
-![[new-droplet-in-folder.png]]
+![[new-droplet-in-folder 1.png]]
 
-15. Copy the IP address listed next to the name of your Droplet (this will be used in the next section)
+18. Copy the IP address listed next to the name of your Droplet (this will be used in the next section)
 
 Congratulations, you have created your first Arch Linux droplet. Now you can move onto the next step: connecting to that Droplet using SSH.
 
-#### Connecting to a Droplet using SSH
+#### References
+1. https://docs.cloud-init.io/en/latest/explanation/introduction.html
+2. https://yaml.org/
+3. https://wiki.archlinux.org/title/Cloud-init
+4. https://www.digitalocean.com/community/tutorials/how-to-use-cloud-config-for-your-initial-server-setup
+5. https://docs.digitalocean.com/products/droplets/how-to/automate-setup-with-cloud-init/
+
+### Connecting to a Droplet using SSH
+***
 
 1. Open your terminal
 2. Run the following command in your terminal
-> Note: Replace "your-user-name" with your Windows user name
+> Note: Replace "your-droplets-ip-address" with the IP address of the Droplet you made earlier
 
 ```
 ssh -i .ssh/do-key arch@your-droplets-ip-address
@@ -253,7 +301,12 @@ What this command means:
 - -i = identity_file. This is the path to the file where your private key is stored
 - arch = the username of the user (arch) that came with our image
 
-3. If you want to disconnect from the Droplet, run the following command
+3. Type yes
+![[Pasted image 20240927234502.png]]
+
+4. Press **Enter**
+
+5. If you want to disconnect from the Droplet, run the following command
 
 ```
 exit
@@ -267,13 +320,15 @@ Congratulations, now that you know how to connect to and disconnect from your Dr
 ### Creating and using an SSH config file to connect to a Droplet
 ***
 
+> Note: This section currently isn't working properly
+
 > What is an SSH config file?
 
 An SSH config file is short for a Secure Shell configuration file. We are creating a configuration file to make it so that any different connection options we use for our hosts (servers) are kept organized. If we want to create and connect to more servers, having this configuration file can make the process of connecting to those servers easier.
 
 To create a SSH config file, follow these steps:
 
-1. In the .ssh folder in your home directory, create a new file named config
+1. In the .ssh folder in your home directory, create a new file named `config`
 
 > Note: The config file is just called "config". Do not add a file extension
 
@@ -311,47 +366,6 @@ You should see something similiar to this after running the command
 arch = the user named arch that comes with the Arch Linux image
 fish = the hostname that you set previously
 
-Congratulations, you have successfully connected to your Droplet using an SSH config file. Now you can move onto the next step: automating initial setup tasks using cloud-init.
-
 #### References
 1. https://www.digitalocean.com/community/tutorials/how-to-configure-custom-connection-options-for-your-ssh-client
 
-### Automating initial setup tasks using cloud-init
-***
-
-> What is a cloud-init?
-
-Cloud-init is a package that contains the tools used to initialize (setup) cloud instances, or in our case, servers, automatically. It does this by using YAML-formatted configuration files (files that contain human-readable instructions), the most common of which being cloud-config files. When a server starts, cloud-init will read and execute the instructions written in YAML file(s). 
-
-Instead of creating 100 servers and manually changing each of them to have the same configurations, we can have those 100 servers all have the settings we want them to have right from the beginning by using a cloud-config file. This can save us a lot of time, and it also reduces the chances of human error.
-
-#### Creating a cloud-config file
-
-> Note: Do not put any sensitive information in your cloud-config file because the information in that file can be accessed by any user in the system
-
-	
-
-text
-- create a new regular user
-- install some initial packages
-- add a public ssh key to the authorized_keys file in your new users home directory
-- disable root access via ssh
-
-#### References
-1. https://docs.cloud-init.io/en/latest/explanation/introduction.html
-2. https://yaml.org/
-3. https://wiki.archlinux.org/title/Cloud-init
-4. https://docs.digitalocean.com/products/droplets/how-to/automate-setup-with-cloud-init/
-
-
-### Connecting to a Droplet using SSH keys
-***
-#### Steps
-
-text
-```
-code block
-```
-
-#### References
-1. https://docs.digitalocean.com/products/droplets/how-to/connect-with-ssh/
