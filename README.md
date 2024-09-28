@@ -161,7 +161,7 @@ A pop-up window will appear
 
 > Note: Give your key an appropriate name that will distinguish itself from other keys.
 > 
-> For example: name your key "acit-2420-laptop" if you use a laptop for this course
+> For example: Name your key "school-linux-2420" if you are creating this key on your school computer
 
 8. Click **Add SSH Key**
 
@@ -179,11 +179,57 @@ Congratulations, you have successfully added a public key to your DigitalOcean a
 
 A Droplet is a virtual machine (VM) that lives on servers owned by DigitalOcean that uses a Linux-based operating system. For our purposes, we will be running Arch Linux on our Droplet. The server we create will live in this VM.
 
-We will be connecting to our Droplet using the SSH keys we created in the previous section.
-
 #### Creating an Arch Linux Droplet
 
-1. a
+To create an Arch Linux Droplet on DigitalOcean, follow these steps:
+
+> Note: You must complete the previous instructions sections for this section to work because we will be using the Arch Linux image and SSH keys we made earlier
+
+1. Log into your DigitalOcean account
+2. At the top of the screen, locate and click the **Create** button
+
+A dropdown menu will appear
+
+3. Click **Droplets**
+
+> Note: For steps 4-6, you are choosing options that match with the choices we made when uploading the Arch Linux image. We are trying to choose the location closest to Vancouver.
+
+4. Under Region, choose **San Francisco**
+5. Click **San Francisco - Datacenter 1 - SFO1**
+![[choose-datacenter.png]]
+
+A dropdown menu will appear
+
+6. Click **San Francisco - Datacenter 1 - SFO3
+7. Under Choose an image, click **Custom images**
+
+This will take you to the Custom images tab
+
+8. Click the Arch Linux image you downloaded previously
+9. Under Size, select the following options:
+	- Droplet Type: Basic
+	- CPU options (pick either one): 
+		- With Premium Intel selected, $8 per month
+		- With Premium AMD selected, $7 per month
+10. Under Choose Authentication Method, ensure that the SSH key is selected
+11. Under Choose your SSH keys, select the SSH key you created previously
+![[choose-ssh-key.png]]
+12. Ensure the quantity of Droplets is 1
+![[droplet-quantity.png]]
+
+13. Under Hostname, type the name you want to give your host
+
+> Note: Choose a simple, memorable, and school-appropriate name. This is the name that will appear in the terminal when you are connected to your server.
+> 
+> For example: Name your host "fish"
+
+14. Click **Create Droplet**
+
+You should now see a Droplet in your project folder
+
+![[new-droplet-in-folder.png]]
+
+Congratulations, you have created your first Arch Linux droplet. Now you can move onto the next step: connecting to that Droplet using SSH.
 
 #### Connecting to our Droplet using SSH
 
