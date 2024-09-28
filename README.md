@@ -306,7 +306,7 @@ Host github.com
 ssh arch
 ```
 
-![[Pasted image 20240927210643.png]]
+![[ssh-arch.png]]
 You should see something similiar to this after running the command
 arch = the user named arch that comes with the Arch Linux image
 fish = the hostname that you set previously
