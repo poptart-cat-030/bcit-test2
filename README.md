@@ -108,12 +108,14 @@ To create an SSH key pair, follow these steps:
 This folder will be used to store our ssh keys and config files
 
 ![[create-ssh-folder.png]]
-2. Run the following command in your terminal, replacing "your-user-name" with your Windows user name
-> Note: "ssh-keygen" is a tool that creates SSH key pairs. If you are using a MacOS or Windows device, you should already have this installed. 
+2. Run the following command in your terminal
+> Note: Replace "your-user-name" with your Windows user name
+
 ```
 `ssh-keygen -t ed25519 -f C:\Users\your-user-name\.ssh\do-key -C "youremail@email.com"`
 ```
 What these commands mean:
+- ssh-keygen = a tool that creates SSH key pairs (you should already have this if you are using a MacOS or Windows device)
 - -t = type (the type of encryption used for the key)
 - -f = filename (specifying the name of the and its location)
 - -C = comment (the comment that will be attached to the key)
@@ -132,6 +134,8 @@ You must connect your public key to your server on your DigitalOcean account for
 1. Copy the contents of your do-key.pub file (your public key) by running one of the following commands depending on your operating system
 
 For Windows users:
+> Note: Replace "your-user-name" with your Windows user name
+
 ```
 Get-Content C:\Users\your-user-name\.ssh\do-key.pub | Set-Clipboard
 ```
@@ -211,8 +215,11 @@ This will take you to the Custom images tab
 	- CPU options (pick either one): 
 		- With Premium Intel selected, $8 per month
 		- With Premium AMD selected, $7 per month
-10. Under Choose Authentication Method, ensure that the SSH key is selected
-11. Under Choose your SSH keys, select the SSH key you created previously
+
+> Note: Be careful not to create a Droplet using a CPU option that is out of your budget
+
+1. Under Choose Authentication Method, ensure that the SSH key is selected
+2. Under Choose your SSH keys, select the SSH key you created previously
 ![[choose-ssh-key.png]]
 12. Ensure the quantity of Droplets is 1
 ![[droplet-quantity.png]]
@@ -229,24 +236,100 @@ You should now see a Droplet in your project folder
 
 ![[new-droplet-in-folder.png]]
 
+15. Copy the IP address listed next to the name of your Droplet (this will be used in the next section)
+
 Congratulations, you have created your first Arch Linux droplet. Now you can move onto the next step: connecting to that Droplet using SSH.
 
-#### Connecting to our Droplet using SSH
+#### Connecting to a Droplet using SSH
 
-1. a
+1. Open your terminal
+2. Run the following command in your terminal
+> Note: Replace "your-user-name" with your Windows user name
+
+```
+ssh -i .ssh/do-key arch@your-droplets-ip-address
+```
+What this command means:
+- -i = identity_file. This is the path to the file where your private key is stored
+- arch = the username of the user (arch) that came with our image
+
+3. If you want to disconnect from the Droplet, run the following command
+
+```
+exit
+```
+
+Congratulations, now that you know how to connect to and disconnect from your Droplet using SSH, you can move onto the next section: creating and using an SSH config file to connect to your Droplet.
 
 #### References
 1. https://www.redhat.com/en/topics/linux/what-is-linux#:~:text=Linux%20was%20designed%20to%20be,rest%20of%20the%20operating%20system.
 
-### Automating initial setup tasks using a cloud-init configuration file
+### Creating and using an SSH config file to connect to a Droplet
 ***
 
-> What is cloud-init?
+> What is an SSH config file?
 
-Cloud-init is 
+An SSH config file is short for a Secure Shell configuration file. We are creating a configuration file to make it so that any different connection options we use for our hosts (servers) are kept organized. If we want to create and connect to more servers, having this configuration file can make the process of connecting to those servers easier.
 
+To create a SSH config file, follow these steps:
 
-#### Steps
+1. In the .ssh folder in your home directory, create a new file named config
+
+> Note: The config file is just called "config". Do not add a file extension
+
+2. In the config file, paste the following text:
+
+> Note: Where it says HostName, replace the IP address next to it with the IP address of your droplet
+> 
+> The Host github.com part is optional, but it can come in handy later
+
+```
+Host arch
+  HostName 143.198.140.15
+  User arch
+  PreferredAuthentications publickey
+  IdentityFile ~/.ssh/do-key
+  StrictHostKeyChecking no
+  UserKnownHostsFile /dev/null
+
+Host github.com
+  HostName github.com
+  PreferredAuthentications publickey
+  IdentityFile ~/.ssh/gh-key
+```
+
+3. Save the config file
+4. Restart the terminal
+5. Run the following command to connect to your server
+
+```
+ssh arch
+```
+
+![[Pasted image 20240927210643.png]]
+You should see something similiar to this after running the command
+arch = the user named arch that comes with the Arch Linux image
+fish = the hostname that you set previously
+
+Congratulations, you have successfully connected to your Droplet using an SSH config file. Now you can move onto the next step: automating initial setup tasks using cloud-init.
+
+#### References
+1. https://www.digitalocean.com/community/tutorials/how-to-configure-custom-connection-options-for-your-ssh-client
+
+### Automating initial setup tasks using cloud-init
+***
+
+> What is a cloud-init?
+
+Cloud-init is a package that contains the tools used to initialize (setup) cloud instances, or in our case, servers, automatically. It does this by using YAML-formatted configuration files (files that contain human-readable instructions), the most common of which being cloud-config files. When a server starts, cloud-init will read and execute the instructions written in YAML file(s). 
+
+Instead of creating 100 servers and manually changing each of them to have the same configurations, we can have those 100 servers all have the settings we want them to have right from the beginning by using a cloud-config file. This can save us a lot of time, and it also reduces the chances of human error.
+
+#### Creating a cloud-config file
+
+> Note: Do not put any sensitive information in your cloud-config file because the information in that file can be accessed by any user in the system
+
+	
 
 text
 - create a new regular user
@@ -255,9 +338,11 @@ text
 - disable root access via ssh
 
 #### References
-1. https://docs.digitalocean.com/products/droplets/how-to/automate-setup-with-cloud-init/
-2. https://wiki.archlinux.org/title/Cloud-init
-3. https://docs.cloud-init.io/en/latest/explanation/introduction.html
+1. https://docs.cloud-init.io/en/latest/explanation/introduction.html
+2. https://yaml.org/
+3. https://wiki.archlinux.org/title/Cloud-init
+4. https://docs.digitalocean.com/products/droplets/how-to/automate-setup-with-cloud-init/
+
 
 ### Connecting to a Droplet using SSH keys
 ***
