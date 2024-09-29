@@ -84,10 +84,10 @@ You should now see information on your image under Custom Images
 Congratulations, you have successfully uploaded your Arch Linux image to DigitalOcean. Now, you can move on to the next section: creating an SSH key pair and adding it to your DigitalOcean account.
 
 #### References
-1. https://docs.digitalocean.com/glossary/image/#:~:text=Last%20edited%20on%2011%20Mar,to%20run%20a%20containerization%20platform
-2. https://www.cloudflare.com/learning/cdn/caching-static-and-dynamic-content/#:~:text=Static%20content%20is%20any%20file,of%20this%20kind%20of%20content
-3. https://wiki.archlinux.org/title/Arch_Linux
 
+1. DigitalOcean. (n.d.). _Image_. DigitalOcean. Retrieved September 29, 2024, from https://docs.digitalocean.com/glossary/image/#:~:text=Last%20edited%20on%2011%20Mar,to%20run%20a%20containerization%20platform
+2. Cloudflare. (n.d.). _Caching static and dynamic content_. Cloudflare. Retrieved September 29, 2024, from https://www.cloudflare.com/learning/cdn/caching-static-and-dynamic-content/#:~:text=Static%20content%20is%20any%20file,of%20this%20kind%20of%20content
+3. Arch Linux. (n.d.). _Arch Linux_. ArchWiki. Retrieved September 29, 2024, from https://wiki.archlinux.org/title/Arch_Linux
 
 ### Creating an SSH key pair and adding it to your DigitalOcean account
 ***
@@ -101,6 +101,7 @@ SSH stands for the Secure Shell protocol, and it is a way of securely sending da
 We will be using SSH keys because they are more secure than using a password.
 
 #### Creating an SSH key pair
+
 To create an SSH key pair, follow these steps:
 
 1.  (For Windows users) Create a .ssh directory in your home directory by creating a new folder called .ssh
@@ -171,9 +172,10 @@ A pop-up window will appear
 Congratulations, you have successfully added a public key to your DigitalOcean account. You can now move onto the next section: creating a Droplet that runs Arch Linux and connecting to it using SSH.
 
 #### References
-1. https://www.cloudflare.com/learning/access-management/what-is-ssh/
-2. https://www.ssh.com/academy/ssh/keygen
-3. https://docs.digitalocean.com/products/droplets/how-to/add-ssh-keys/
+
+1. Cloudflare. (n.d.). _What is SSH?_. Cloudflare. Retrieved September 29, 2024, from https://www.cloudflare.com/learning/access-management/what-is-ssh/
+2. SSH Academy. (n.d.). _SSH keygen_. SSH Academy. Retrieved September 29, 2024, from https://www.ssh.com/academy/ssh/keygen
+3. DigitalOcean. (n.d.). _Add SSH keys_. DigitalOcean. Retrieved September 29, 2024, from https://docs.digitalocean.com/products/droplets/how-to/add-ssh-keys/
 
 ### Creating a Droplet that runs Arch Linux with automated initial set-up tasks (cloud-init)
 ***
@@ -288,11 +290,12 @@ You should now see a Droplet in your project folder
 Congratulations, you have created your first Arch Linux droplet. Now you can move onto the next step: connecting to that Droplet using SSH.
 
 #### References
-1. https://docs.cloud-init.io/en/latest/explanation/introduction.html
-2. https://yaml.org/
-3. https://wiki.archlinux.org/title/Cloud-init
-4. https://www.digitalocean.com/community/tutorials/how-to-use-cloud-config-for-your-initial-server-setup
-5. https://docs.digitalocean.com/products/droplets/how-to/automate-setup-with-cloud-init/
+
+1. Cloud-Init. (n.d.). _Introduction_. Cloud-Init. Retrieved September 29, 2024, from https://docs.cloud-init.io/en/latest/explanation/introduction.html
+2. YAML. (n.d.). _YAML_. YAML. Retrieved September 29, 2024, from https://yaml.org/
+3. Arch Linux. (n.d.). _Cloud-init_. ArchWiki. Retrieved September 29, 2024, from https://wiki.archlinux.org/title/Cloud-init
+4. DigitalOcean. (n.d.). _How to use cloud-config for your initial server setup_. DigitalOcean. Retrieved September 29, 2024, from https://www.digitalocean.com/community/tutorials/how-to-use-cloud-config-for-your-initial-server-setup
+5. DigitalOcean. (n.d.). _Automate setup with cloud-init_. DigitalOcean. Retrieved September 29, 2024, from https://docs.digitalocean.com/products/droplets/how-to/automate-setup-with-cloud-init/
 
 ### Connecting to a Droplet using SSH
 ***
@@ -324,7 +327,8 @@ exit
 Congratulations, now that you know how to connect to and disconnect from your Droplet using SSH, you can move onto the next section: creating and using an SSH config file to connect to your Droplet.
 
 #### References
-1. https://www.redhat.com/en/topics/linux/what-is-linux#:~:text=Linux%20was%20designed%20to%20be,rest%20of%20the%20operating%20system.
+
+1. Red Hat. (n.d.). _What is Linux?_. Red Hat. Retrieved September 29, 2024, from https://www.redhat.com/en/topics/linux/what-is-linux#:~:text=Linux%20was%20designed%20to%20be,rest%20of%20the%20operating%20system
 
 ### Creating and using an SSH config file to connect to a Droplet
 ***
@@ -344,8 +348,6 @@ To create a SSH config file, follow these steps:
 > Note: 
 > - Replace "your-user-name" with the username that you gave your user in your cloud-config file
 > - Replace "your-droplets-ip-address" with the IP address of your droplet
-> 
-> The Host github.com part is optional, but it can come in handy in the future
 
 ```
 Host your-user-name
@@ -375,5 +377,5 @@ pond = the hostname that you set previously
 Congratulations, you have successfully connected to a Droplet using an SSH config file. You have reached the end of the tutorial.
 
 #### References
-1. https://www.digitalocean.com/community/tutorials/how-to-configure-custom-connection-options-for-your-ssh-client
 
+1. DigitalOcean. (n.d.). _How to configure custom connection options for your SSH client_. DigitalOcean. Retrieved September 29, 2024, from https://www.digitalocean.com/community/tutorials/how-to-configure-custom-connection-options-for-your-ssh-client
