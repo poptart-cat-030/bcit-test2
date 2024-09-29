@@ -154,8 +154,7 @@ wl-copy < ~/.ssh/do-key.pub
 
 2. Go to the DigitalOcean website
 3. Locate and click **Settings**
-4. Click the **Security** tab
-![[security-tab.png]]
+4. Under Settings, click the **Security** tab
 5. Locate and click Add SSH Key
 
 A pop-up window will appear
@@ -236,19 +235,28 @@ This will expand the menu
 ![[add-initialization scripts.png]]
 
 14. Copy the following code. This is your cloud-config file:
+>Note: 
+>- Replace "your-user-name" with the name you want to give your user (we are naming ours "fish")
+>- Replace "your-public-key" with the contents of the public key you made earlier
 
-> Note: 
-> 	- Replace "your-user-name" with the name you want to give your user
-> 	- Replace "your_ssh_keys" with the public SSH key you made previously
+>Note: You can find the contents of your public key by going into the terminal and running the following command:
+>
+> Replace "your-user-name" with your Windows user name
+
+```
+Get-Content C:\Users\your-user-name\.ssh\do-key.pub | Set-Clipboard
+```
 
 ```
 #cloud-config
 users:
-  - name: user-name
+  - name: your-user-name
+    primary_group: your-user-name
+    groups: wheel
     shell: /bin/bash
     sudo: ['ALL=(ALL) NOPASSWD:ALL']
     ssh-authorized-keys:
-      - your_ssh_keys
+      - your-public-key
 packages:
   - ripgrep
   - rsync
@@ -268,13 +276,12 @@ disable_root: true
 
 > Note: Choose a simple, memorable, and school-appropriate name. This is the name that will appear in the terminal when you are connected to your server.
 > 
-> For example: Name your host "fish"
+> For example: Name your host "pond"
 
 17. Click **Create Droplet**
 
 You should now see a Droplet in your project folder
-
-![[new-droplet-in-folder 1.png]]
+![[created-droplet-pond.png]]
 
 18. Copy the IP address listed next to the name of your Droplet (this will be used in the next section)
 
@@ -292,17 +299,19 @@ Congratulations, you have created your first Arch Linux droplet. Now you can mov
 
 1. Open your terminal
 2. Run the following command in your terminal
-> Note: Replace "your-droplets-ip-address" with the IP address of the Droplet you made earlier
+> Note: 
+> - Replace "your-droplets-ip-address" with the IP address of the Droplet you made earlier
+> - Replace "your-user-name" with the username that you gave your user in your cloud-config file
 
 ```
-ssh -i .ssh/do-key arch@your-droplets-ip-address
+ssh -i .ssh/do-key your-user-name@your-droplets-ip-address
 ```
 What this command means:
 - -i = identity_file. This is the path to the file where your private key is stored
-- arch = the username of the user (arch) that came with our image
+- your-user-name = the username that you put in your cloud-config file
 
 3. Type yes
-![[Pasted image 20240927234502.png]]
+![[ssh-do-key-fish.png]]
 
 4. Press **Enter**
 
@@ -320,8 +329,6 @@ Congratulations, now that you know how to connect to and disconnect from your Dr
 ### Creating and using an SSH config file to connect to a Droplet
 ***
 
-> Note: This section currently isn't working properly
-
 > What is an SSH config file?
 
 An SSH config file is short for a Secure Shell configuration file. We are creating a configuration file to make it so that any different connection options we use for our hosts (servers) are kept organized. If we want to create and connect to more servers, having this configuration file can make the process of connecting to those servers easier.
@@ -334,37 +341,38 @@ To create a SSH config file, follow these steps:
 
 2. In the config file, paste the following text:
 
-> Note: Where it says HostName, replace the IP address next to it with the IP address of your droplet
+> Note: 
+> - Replace "your-user-name" with the username that you gave your user in your cloud-config file
+> - Replace "your-droplets-ip-address" with the IP address of your droplet
 > 
-> The Host github.com part is optional, but it can come in handy later
+> The Host github.com part is optional, but it can come in handy in the future
 
 ```
-Host arch
-  HostName 143.198.140.15
-  User arch
+Host your-user-name
+  HostName your-droplets-ip-address
+  User your-user-name
   PreferredAuthentications publickey
   IdentityFile ~/.ssh/do-key
   StrictHostKeyChecking no
   UserKnownHostsFile /dev/null
-
-Host github.com
-  HostName github.com
-  PreferredAuthentications publickey
-  IdentityFile ~/.ssh/gh-key
 ```
 
 3. Save the config file
 4. Restart the terminal
 5. Run the following command to connect to your server
 
+> Note: Replace "your-user-name" with the username that you gave your user in your cloud-config file
+
 ```
-ssh arch
+ssh your-user-name
 ```
 
-![[ssh-arch.png]]
-You should see something similiar to this after running the command
-arch = the user named arch that comes with the Arch Linux image
-fish = the hostname that you set previously
+![[ssh-fish.png]]
+You should see something similar to this after running the command
+fish = the user we named fish in our cloud-config file. Yours should be different
+pond = the hostname that you set previously
+
+Congratulations, you have successfully connected to a Droplet using an SSH config file. You have reached the end of the tutorial.
 
 #### References
 1. https://www.digitalocean.com/community/tutorials/how-to-configure-custom-connection-options-for-your-ssh-client
