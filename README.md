@@ -135,6 +135,7 @@ You must connect your public key to your server on your DigitalOcean account for
 1. Copy the contents of your do-key.pub file (the file containing your public key) by running one of the following commands depending on your operating system
 
 For Windows users:
+
 > Note: Replace "your-user-name" with your Windows user name
 
 ```
@@ -142,11 +143,13 @@ Get-Content C:\Users\your-user-name\.ssh\do-key.pub | Set-Clipboard
 ```
 
 For MacOS users:
+
 ``` 
 pbcopy < ~/.ssh/do-key.pub
 ```
 
 For Linux users:
+
 > Note: This command depends on the system you are using
 
 ```
@@ -373,8 +376,8 @@ ssh your-user-name
 
 ![[ssh-fish.png]]
 You should see something similar to this after running the command
-fish = the user we named fish in our cloud-config file. Yours should be different
-pond = the hostname that you set previously
+fish = the user we named fish in our cloud-config file. Yours may be different
+pond = the hostname that we set previously when creating the Droplet. Yours may be different
 
 Congratulations, you have successfully connected to a Droplet using an SSH config file. You have reached the end of the tutorial.
 
