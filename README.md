@@ -132,7 +132,7 @@ Congratulations, once you see these two files in your .ssh directory, you can mo
 
 You must connect your public key to your server on your DigitalOcean account for it to allow you to login to the server using your private key. To add your public key onto DigitalOcean, follow these steps:
 
-1. Copy the contents of your do-key.pub file (your public key) by running one of the following commands depending on your operating system
+1. Copy the contents of your do-key.pub file (the file containing your public key) by running one of the following commands depending on your operating system
 
 For Windows users:
 > Note: Replace "your-user-name" with your Windows user name
@@ -243,7 +243,7 @@ This will expand the menu
 
 >Note: You can find the contents of your public key by going into the terminal and running the following command:
 >
-> Replace "your-user-name" with your Windows user name
+> - Replace "your-user-name" with your Windows user name
 
 ```
 Get-Content C:\Users\your-user-name\.ssh\do-key.pub | Set-Clipboard
@@ -302,6 +302,7 @@ Congratulations, you have created your first Arch Linux droplet. Now you can mov
 
 1. Open your terminal
 2. Run the following command in your terminal
+
 > Note: 
 > - Replace "your-droplets-ip-address" with the IP address of the Droplet you made earlier
 > - Replace "your-user-name" with the username that you gave your user in your cloud-config file
@@ -309,6 +310,7 @@ Congratulations, you have created your first Arch Linux droplet. Now you can mov
 ```
 ssh -i .ssh/do-key your-user-name@your-droplets-ip-address
 ```
+
 What this command means:
 - -i = identity_file. This is the path to the file where your private key is stored
 - your-user-name = the username that you put in your cloud-config file
